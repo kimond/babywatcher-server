@@ -6,9 +6,18 @@ setup(name='babywatcher_server',
       author='Kim Desrosiers',
       author_email='kimdesro@gmail.com',
       packages=find_packages(),
-      include_package_data = True,
+      include_package_data=True,
       data_files=[('/etc/babywatcher', ['etc/config.yaml'])],
-      entry_points = {
+      install_requires=[
+          'pyyaml'
+      ],
+      extras_require={
+          'dev': [
+              'pytest',
+              'pytest-cov'
+          ]
+      },
+      entry_points={
           'console_scripts': ['babywat=babywatcher_server.cli:main'],
       }
       )

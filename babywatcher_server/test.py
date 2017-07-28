@@ -1,10 +1,3 @@
-from stream import Stream
-from config import *
+from babywatcher_server.stream import Stream
+from babywatcher_server.config import Config
 
-def main():
-    # Stream.getStream()
-    print get_ip_address('wlan0')
-
-
-if __name__ == "__main__":
-    main()

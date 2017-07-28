@@ -1,17 +1,15 @@
-import SocketServer
-from socket import *
-from daemon import Daemon
-from stream import Stream
-import sys
+import socketserver
+from babywatcher_server.daemon import Daemon
+from babywatcher_server.stream import Stream
 
-#server constant
+# server constant
 HOST = '0.0.0.0'
 PORT = 5050
-ADDR = (HOST,PORT)
+ADDR = (HOST, PORT)
 BUFSIZE = 4096
 
-class TCPHandler(SocketServer.BaseRequestHandler):
 
+class TCPHandler(socketserver.BaseRequestHandler):
     def handle(self):
         self.data = self.request.recv(1024).strip()
         if self.data == "getStreamUrl":
@@ -24,6 +22,5 @@ class TCPHandler(SocketServer.BaseRequestHandler):
 
 class BabyWatcherServer(Daemon):
     def run(self):
-        serv = SocketServer.TCPServer((HOST,PORT),TCPHandler)
+        serv = socketserver.TCPServer((HOST, PORT), TCPHandler)
         serv.serve_forever()
-

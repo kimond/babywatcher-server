@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-from server import BabyWatcherServer
+from babywatcher_server.server import BabyWatcherServer
 import argparse
 
 def get_parser():

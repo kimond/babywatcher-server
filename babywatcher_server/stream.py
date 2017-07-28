@@ -1,17 +1,17 @@
 import subprocess
 import time
-import config
+from babywatcher_server.utils import get_iface_ip_address
+
 
 class Stream(object):
-
     stream_process = None
 
     @staticmethod
     def startStream():
         # Stream with vlc
-        Stream.stream_process = subprocess.Popen(['cvlc','v4l2:///dev/video0',
-                                                ':sout=#transcode{vcodec=h264,vb=56,fps=5,scale=Auto,width=176,height=144,acodec=none}:rtp{sdp=rtsp://:8554/}',
-                                                ':sout-keep'])
+        Stream.stream_process = subprocess.Popen(['cvlc', 'v4l2:///dev/video0',
+                                                  ':sout=#transcode{vcodec=h264,vb=56,fps=5,scale=Auto,width=176,height=144,acodec=none}:rtp{sdp=rtsp://:8554/}',
+                                                  ':sout-keep'])
 
     @staticmethod
     def stopStream():
@@ -23,6 +23,5 @@ class Stream(object):
         if not Stream.stream_process:
             Stream.startStream()
             time.sleep(3)
-        stream_url = "rtsp://{0}:8554/".format(config.get_ip_address('wlan0'))
+        stream_url = "rtsp://{0}:8554/".format(get_iface_ip_address('wlan0'))
         return stream_url
-
